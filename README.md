@@ -16,6 +16,7 @@ A powerful React-based image and video annotation tool for machine learning, com
 - **💡 TypeScript Support**: Full TypeScript integration with comprehensive type definitions
 - **⚛️ React 19 Ready**: Compatible with React 18+ and React 19 with proper JSX runtime support
 - **🎨 Professional Interface**: Advanced annotation tools with Material-UI components
+- **🔄 Bounding Box Rotation**: Rotate bounding boxes with intuitive controls and 15° snapping
 - **⚡ Performance Optimized**: Enhanced with lodash deep cloning and Terser minification
 - **🔒 Immutable State Handling**: Robust circular reference prevention and error handling
 - **🛠️ Modern Build System**: Vite-powered development and optimized production builds
@@ -33,12 +34,13 @@ A powerful React-based image and video annotation tool for machine learning, com
 ## Features
 
 - Simple input/output format
-- Bounding Box, Point and Polygon Annotation
+- Bounding Box, Point and Polygon Annotation with **Rotation Support**
 - Keypoint and Landmark Annotation
 - Image Segmentation Support
 - Zooming, Scaling, Panning
 - Multiple Images and Video Support
 - Cursor Crosshair
+- **Rotatable Bounding Boxes** with visual rotation handles and 15° snap increments
 
 ![Screenshot of Annotator](https://user-images.githubusercontent.com/1910070/51199716-83c72080-18c5-11e9-837c-c3a89c8caef4.png)
 
@@ -96,6 +98,43 @@ following line added to a css file should suffice.
 ```css
 @import url("https://rsms.me/inter/inter.css");
 ```
+
+## 🔄 Bounding Box Rotation Feature
+
+The React Visual Annotator now supports rotating bounding boxes for more accurate annotations of rotated objects.
+
+### How to Use Rotation
+
+1. **Create or select a bounding box** - Draw a bounding box or click on an existing one
+2. **Look for the blue rotation handle** - A blue circular handle appears on the right side of selected boxes
+3. **Drag to rotate** - Click and drag the rotation handle to rotate the box
+4. **15° snapping** - The rotation snaps to 15° increments for precise control
+5. **Visual feedback** - The box rotates in real-time with proper border rendering
+
+### Rotation Data Format
+
+When using rotation, the bounding box data includes a `rotation` property:
+
+```javascript
+const rotatedBox = {
+  type: "box",
+  id: "box1",
+  x: 0.2,        // Normalized x coordinate (0-1)
+  y: 0.3,        // Normalized y coordinate (0-1)
+  w: 0.4,        // Normalized width (0-1)
+  h: 0.2,        // Normalized height (0-1)
+  rotation: 45,  // Rotation angle in degrees (0-360)
+  color: "#ff0000",
+  cls: "object"
+};
+```
+
+### Benefits of Rotation
+
+- **Accurate annotations** for objects that aren't axis-aligned
+- **Better training data** for machine learning models
+- **Reduced annotation time** - no need to approximate with larger axis-aligned boxes
+- **Improved model accuracy** with more precise bounding boxes
 
 ## Props
 
@@ -204,6 +243,22 @@ If you're looking for this package, you might have searched for:
 - Consider using React.memo for custom components when integrating with the annotator
 
 ## Changelog
+
+### Version 1.2.0
+
+#### 🔄 **Bounding Box Rotation Feature**
+- **NEW: Rotatable bounding boxes**: Click and drag the blue rotation handle to rotate bounding boxes
+- **15° snap increments**: Precise rotation control with automatic snapping
+- **Visual rotation handles**: Intuitive blue circular handle positioned on the right side of selected boxes
+- **Proper border rendering**: White dotted borders and all UI elements rotate correctly with the box
+- **Full integration**: Rotation works with history/undo, video annotations, and state persistence
+- **Export compatibility**: Rotation angle stored as `rotation` property in annotation data
+
+#### 🎯 **Technical Improvements**
+- **Enhanced SVG rendering**: Proper rotation transforms for both fill and stroke elements
+- **Improved handle positioning**: All transform handles (resize + rotation) position correctly for rotated boxes
+- **Mathematical precision**: Uses trigonometric calculations for accurate handle positioning
+- **State management**: Full integration with existing action/reducer system
 
 ### Version 1.1.0
 
