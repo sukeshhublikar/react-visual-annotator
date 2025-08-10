@@ -59,6 +59,7 @@ export type Mode =
     }
   | { mode: "MOVE_REGION"; regionId: string }
   | { mode: "MOVE_KEYPOINT"; regionId: string; keypointId: string }
+  | { mode: "ROTATE_BOX"; regionId: string }
   | {
       mode: "RESIZE_KEYPOINTS";
       landmarks: {
@@ -119,6 +120,8 @@ export type MainLayoutStateBase = {
   fullImageSegmentationMode?: boolean;
   autoSegmentationOptions?: AutosegOptions;
   lastMouseMoveCall?: number;
+  rotatingBox?: Box;
+  rotationStartAngle?: number;
 };
 
 export interface MainLayoutImageAnnotationState extends MainLayoutStateBase {
@@ -196,6 +199,7 @@ export type Action =
   | { type: "CHANGE_IMAGE"; delta: { cls?: string; tags?: string[] } }
   | { type: "CHANGE_VIDEO_TIME"; currentVideoTime: number; newTime: number }
   | { type: "CHANGE_VIDEO_PLAYING"; videoPlaying: boolean; isPlaying: boolean }
+  | { type: "BEGIN_BOX_ROTATION"; box: Box }
   | {
       type: "DELETE_KEYFRAME";
       keyframes: MainLayoutVideoAnnotationState["keyframes"];

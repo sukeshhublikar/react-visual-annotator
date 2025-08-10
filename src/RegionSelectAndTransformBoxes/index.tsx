@@ -24,6 +24,31 @@ const TransformGrabber = styled("div")(() => ({
   position: "absolute",
 }));
 
+const RotationHandle = styled("div")(() => ({
+  width: 12,
+  height: 12,
+  zIndex: 3,
+  border: "2px solid #FFF",
+  borderRadius: "50%",
+  position: "absolute",
+  backgroundColor: "#007bff",
+  cursor: "grab",
+  "&:hover": {
+    backgroundColor: "#0056b3",
+  },
+  "&:active": {
+    cursor: "grabbing",
+  },
+}));
+
+const RotationLine = styled("div")(() => ({
+  position: "absolute",
+  width: 1,
+  backgroundColor: "#007bff",
+  zIndex: 1,
+  pointerEvents: "none",
+}));
+
 const boxCursorMap = [
   ["nw-resize", "n-resize", "ne-resize"],
   ["w-resize", "grab", "e-resize"],
@@ -58,6 +83,7 @@ interface RegionSelectAndTransformBoxProps {
   onBeginMovePolygonPoint: (r: Polygon, pointIndex: number) => void;
   onBeginMoveKeypoint: (r: Keypoints, keypointId: string) => void;
   onAddPolygonPoint: (r: Polygon, pa: [number, number], i: number) => void;
+  onBeginBoxRotation?: (r: Box) => void;
   showHighlightBox: boolean;
 }
 
@@ -77,6 +103,7 @@ export const RegionSelectAndTransformBox = memo(
     onBeginMovePolygonPoint,
     onBeginMoveKeypoint,
     onAddPolygonPoint,
+    onBeginBoxRotation,
     showHighlightBox,
   }: RegionSelectAndTransformBoxProps) => {
     const pbox: ProjectBox = projectRegionBox(r);
@@ -113,23 +140,96 @@ export const RegionSelectAndTransformBox = memo(
                 [0, 1],
                 [0, 0.5],
                 [0.5, 0.5],
-              ].map(([px, py], i) => (
-                <TransformGrabber
-                  key={i}
-                  {...mouseEvents}
-                  onMouseDown={(e:any) => {
-                    if (e.button === 0)
-                      return onBeginBoxTransform(r, [px * 2 - 1, py * 2 - 1]);
-                    mouseEvents.onMouseDown(e);
-                  }}
-                  style={{
-                    left: pbox.x - 4 - 2 + pbox.w * px,
-                    top: pbox.y - 4 - 2 + pbox.h * py,
-                    cursor: boxCursorMap[py * 2][px * 2],
-                    borderRadius: px === 0.5 && py === 0.5 ? 4 : undefined,
-                  }}
-                />
-              ))}
+              ].map(([px, py], i) => {
+                // Calculate rotated position for transform handles
+                const rotation = (r.rotation || 0) * Math.PI / 180;
+                const centerX = pbox.x + pbox.w / 2;
+                const centerY = pbox.y + pbox.h / 2;
+                
+                // Original handle position relative to center
+                const relativeX = (pbox.x + pbox.w * px) - centerX;
+                const relativeY = (pbox.y + pbox.h * py) - centerY;
+                
+                // Apply rotation
+                const rotatedX = relativeX * Math.cos(rotation) - relativeY * Math.sin(rotation);
+                const rotatedY = relativeX * Math.sin(rotation) + relativeY * Math.cos(rotation);
+                
+                // Final position
+                const finalX = centerX + rotatedX - 4 - 2;
+                const finalY = centerY + rotatedY - 4 - 2;
+                
+                return (
+                  <TransformGrabber
+                    key={i}
+                    {...mouseEvents}
+                    onMouseDown={(e) => {
+                      if (e.button === 0)
+                        return onBeginBoxTransform(r, [px * 2 - 1, py * 2 - 1]);
+                      mouseEvents.onMouseDown(e);
+                    }}
+                    style={{
+                      left: finalX,
+                      top: finalY,
+                      cursor: boxCursorMap[py * 2][px * 2],
+                      borderRadius: px === 0.5 && py === 0.5 ? 4 : undefined,
+                    }}
+                  />
+                );
+              })}
+            {r.type === "box" &&
+              !dragWithPrimary &&
+              !zoomWithPrimary &&
+              !r.locked &&
+              r.highlighted &&
+              mat.a < 1.2 &&
+              onBeginBoxRotation && (() => {
+                // Calculate the rotated position for the rotation handle
+                const rotation = (r.rotation || 0) * Math.PI / 180; // Convert to radians
+                const centerX = pbox.x + pbox.w / 2;
+                const centerY = pbox.y + pbox.h / 2;
+                
+                // Handle position relative to center (30px to the right of center)
+                const handleDistance = 30;
+                const handleX = centerX + Math.cos(rotation) * handleDistance;
+                const handleY = centerY + Math.sin(rotation) * handleDistance;
+                
+                // Line start position (5px to the right of center)
+                const lineDistance = 5;
+                const lineStartX = centerX + Math.cos(rotation) * lineDistance;
+                const lineStartY = centerY + Math.sin(rotation) * lineDistance;
+                
+                return (
+                  <>
+                    {/* Rotation Line */}
+                    <RotationLine
+                      style={{
+                        left: lineStartX,
+                        top: lineStartY,
+                        width: 20,
+                        height: 1,
+                        transformOrigin: "0px 0px",
+                        transform: `rotate(${r.rotation || 0}deg)`,
+                      }}
+                    />
+                    {/* Rotation Handle */}
+                    <RotationHandle
+                      {...mouseEvents}
+                      onMouseDown={(e) => {
+                        if (e.button === 0) {
+                          e.stopPropagation();
+                          return onBeginBoxRotation(r);
+                        }
+                        mouseEvents.onMouseDown(e);
+                      }}
+                      style={{
+                        left: handleX - 6,
+                        top: handleY - 6,
+                      }}
+                      title="Rotate"
+                    />
+                  </>
+                );
+              })()}
             {r.type === "polygon" &&
               !dragWithPrimary &&
               !zoomWithPrimary &&
@@ -144,7 +244,7 @@ export const RegionSelectAndTransformBox = memo(
                   <TransformGrabber
                     key={i}
                     {...mouseEvents}
-                    onMouseDown={(e:any) => {
+                    onMouseDown={(e) => {
                       if (e.button === 0 && (!r.open || i === 0))
                         return onBeginMovePolygonPoint(r, i);
                       mouseEvents.onMouseDown(e);
@@ -185,7 +285,7 @@ export const RegionSelectAndTransformBox = memo(
                     <TransformGrabber
                       key={i}
                       {...mouseEvents}
-                      onMouseDown={(e:any) => {
+                      onMouseDown={(e) => {
                         if (e.button === 0)
                           return onAddPolygonPoint(
                             r,
@@ -221,7 +321,7 @@ export const RegionSelectAndTransformBox = memo(
                       <TransformGrabber
                         key={i}
                         {...mouseEvents}
-                        onMouseDown={(e:any) => {
+                        onMouseDown={(e) => {
                           if (e.button === 0 && (!r.open || i === 0))
                             return onBeginMoveKeypoint(r, keypointId);
                           mouseEvents.onMouseDown(e);

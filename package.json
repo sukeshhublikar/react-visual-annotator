@@ -1,7 +1,7 @@
 {
   "name": "react-visual-annotator",
-  "version": "1.1.1",
-  "description": "Powerful React image and video annotation tool for machine learning, computer vision, and AI training data creation. Features bounding boxes, polygons, keypoints, segmentation with TypeScript support and Material-UI components.",
+  "version": "1.2.0",
+  "description": "Powerful React image and video annotation tool for machine learning, computer vision, and AI training data creation. Features rotatable bounding boxes, polygons, keypoints, segmentation with TypeScript support and Material-UI components.",
   "type": "module",
   "main": "dist/react-visual-annotator.js",
   "module": "dist/react-visual-annotator.js",
@@ -117,6 +117,9 @@
     "computer-vision",
     "ai-training",
     "bounding-box",
+    "rotation",
+    "rotatable-boxes",
+    "box-rotation",
     "polygon-annotation",
     "keypoint-annotation",
     "object-detection",
@@ -134,7 +137,9 @@
     "dataset-creation",
     "yolo",
     "coco",
-    "training-data"
+    "training-data",
+    "rotated-objects",
+    "oriented-bounding-box"
   ],
   "author": {
     "name": "Sukesh Hublikar",

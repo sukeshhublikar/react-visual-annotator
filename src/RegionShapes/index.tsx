@@ -46,12 +46,21 @@ const RegionComponents = {
   }),
   box: memo(({ region, iw, ih }: RegionComponentProps) => {
     if (region.type !== "box") return null;
+    const rotation = region.rotation || 0;
+    
+    // Calculate the center point for rotation
+    const centerX = region.x * iw + (region.w * iw) / 2;
+    const centerY = region.y * ih + (region.h * ih) / 2;
+    
+    // Apply rotation transform to the entire group, rotating around the center
+    const transformString = `rotate(${rotation} ${centerX} ${centerY})`;
+    
     return (
-      <g transform={`translate(${region.x * iw} ${region.y * ih})`}>
+      <g transform={transformString}>
         <rect
           strokeWidth={2}
-          x={0}
-          y={0}
+          x={region.x * iw}
+          y={region.y * ih}
           width={Math.max(region.w * iw, 0)}
           height={Math.max(region.h * ih, 0)}
           stroke={colorAlpha(region.color, 0.75)}

@@ -85,6 +85,13 @@ export const HighlightBox = ({
         }L5 ${styleCoords.height - 5}Z`
       : `M5,5 L${pbox.w + 5},5 L${pbox.w + 5},${pbox.h + 5} L5,${pbox.h + 5} Z`;
 
+  // Calculate rotation transform for rotated boxes
+  const rotation = r.type === "box" && r.rotation ? r.rotation : 0;
+  const rotationTransform = rotation !== 0 ? {
+    transformOrigin: `${(pbox.w + 10) / 2}px ${(pbox.h + 10) / 2}px`,
+    transform: `rotate(${rotation}deg)`,
+  } : {};
+
   return (
     <ThemeProvider theme={theme}>
       <svg
@@ -133,6 +140,7 @@ export const HighlightBox = ({
               }),
           position: "absolute",
           ...styleCoords,
+          ...rotationTransform,
         }}
       >
         <path d={pathD} />

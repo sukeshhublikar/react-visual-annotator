@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-01-10
+
+### 🔄 Added
+- **Bounding Box Rotation Feature**: Complete rotation system for bounding boxes
+  - Blue circular rotation handle appears on the right side of selected boxes
+  - 15° snap increments for precise rotation control
+  - Real-time visual feedback during rotation
+  - Rotation angle stored as `rotation` property (0-360 degrees) in annotation data
+  - Full integration with history/undo system
+  - Compatible with video annotations and state persistence
+
+### 🎯 Improved
+- **Enhanced SVG rendering**: Proper rotation transforms for both fill and stroke elements
+- **Mathematical precision**: Uses trigonometric calculations for accurate handle positioning
+- **Handle positioning**: All transform handles (resize + rotation) position correctly for rotated boxes
+- **Visual consistency**: All UI elements rotate together seamlessly
+
+### 🐛 Fixed
+- **HighlightBox rotation**: White dotted selection border now rotates properly with bounding boxes
+- **Handle positioning**: Rotation handle correctly positioned on right side of boxes
+- **Border rendering**: Both fill and stroke elements now rotate correctly
+
+### 📚 Changed
+- **Updated documentation**: Added comprehensive rotation feature documentation
+- **Enhanced keywords**: Added rotation-related keywords for better npm discoverability
+- **Version bump**: Updated to v1.2.0 to reflect new major feature
+
 ## [1.1.0] - 2025-01-10
 
 ### 🚀 Bundle Size Optimization

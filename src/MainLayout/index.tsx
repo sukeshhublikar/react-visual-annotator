@@ -165,7 +165,7 @@ export const MainLayout = ({
   });
 
   // const isAVideoFrame = activeImage && activeImage.frameTime !== undefined
-  const innerContainerRef = useRef<HTMLElement>(null!);
+  const innerContainerRef = useRef<HTMLElement | null>(null);
   const hotkeyHandlers = useDispatchHotkeyHandlers({ dispatch });
 
   const refocusOnMouseEvent: MouseEventHandler<HotKeys> = useCallback(
@@ -232,6 +232,7 @@ export const MainLayout = ({
       onCloseRegionEdit={action("CLOSE_REGION_EDITOR", "region")}
       onDeleteRegion={action("DELETE_REGION", "region")}
       onBeginBoxTransform={action("BEGIN_BOX_TRANSFORM", "box", "directions")}
+      onBeginBoxRotation={action("BEGIN_BOX_ROTATION", "box")}
       onBeginMovePolygonPoint={action(
         "BEGIN_MOVE_POLYGON_POINT",
         "polygon",

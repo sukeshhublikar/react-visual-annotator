@@ -66,6 +66,7 @@ export default (
   if (!state.keyframes[state.currentVideoTime]) {
     switch (action.type) {
       case "BEGIN_BOX_TRANSFORM":
+      case "BEGIN_BOX_ROTATION":
       case "BEGIN_MOVE_POINT":
       case "BEGIN_MOVE_KEYPOINT":
       case "BEGIN_MOVE_POLYGON_POINT":

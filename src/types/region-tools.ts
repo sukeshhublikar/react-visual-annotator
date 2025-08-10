@@ -38,6 +38,7 @@ export type Box = BaseRegion & {
   y: number;
   w: number;
   h: number;
+  rotation?: number; // Rotation angle in degrees (0-360)
 };
 
 export type Polygon = BaseRegion & {

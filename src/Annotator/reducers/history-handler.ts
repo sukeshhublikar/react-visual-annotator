@@ -7,6 +7,7 @@ import { cloneDeep } from "lodash";
 
 const typesToSaveWithHistory: Record<string, string> = {
   BEGIN_BOX_TRANSFORM: "Transform/Move Box",
+  BEGIN_BOX_ROTATION: "Rotate Box",
   BEGIN_MOVE_POINT: "Move Point",
   DELETE_REGION: "Delete Region",
 };

@@ -224,6 +224,18 @@ export default <T extends ImmutableObject<MainLayoutState>>(
         }) as T;
       }
     }
+    case "BEGIN_BOX_ROTATION": {
+      const { box } = action;
+      state = closeEditors(state) as T;
+      return Immutable(state).merge({
+        mode: {
+          mode: "ROTATE_BOX",
+          regionId: box.id,
+        },
+        rotatingBox: box,
+        rotationStartAngle: box.rotation || 0,
+      }) as T;
+    }
     case "BEGIN_MOVE_POLYGON_POINT": {
       const { polygon, pointIndex } = action;
       state = closeEditors(state) as T;
@@ -328,6 +340,28 @@ export default <T extends ImmutableObject<MainLayoutState>>(
           return Immutable(state).setIn(
             [...pathToActiveImage, "regions", regionIndex.toString()],
             moveRegion(activeImage.regions[regionIndex], x, y)
+          ) as T;
+        }
+        case "ROTATE_BOX": {
+          const { regionId } = state.mode;
+          const [region, regionIndex] = getRegion(regionId) || [null, null];
+          if (region === null || regionIndex === null || region.type !== "box")
+            return state;
+          
+          // Calculate rotation angle based on mouse position relative to box center
+          const centerX = region.x + region.w / 2;
+          const centerY = region.y + region.h / 2;
+          const deltaX = x - centerX;
+          const deltaY = y - centerY;
+          const angleRadians = Math.atan2(deltaY, deltaX);
+          const angleDegrees = (angleRadians * 180) / Math.PI + 90; // +90 to start at top
+          
+          // Snap to 15-degree increments
+          const snappedAngle = Math.round(angleDegrees / 15) * 15;
+          
+          return Immutable(state).setIn(
+            [...pathToActiveImage, "regions", regionIndex.toString(), "rotation"],
+            snappedAngle
           ) as T;
         }
         case "RESIZE_BOX": {

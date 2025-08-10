@@ -104,6 +104,7 @@ type Props = {
   onCloseRegionEdit: (region: Region) => void;
   onDeleteRegion: (region: Region) => void;
   onBeginBoxTransform: (region: Box, point: [number, number]) => void;
+  onBeginBoxRotation?: (region: Box) => void;
   onBeginMovePolygonPoint: (region: Polygon, index: number) => void;
   onBeginMoveKeypoint: (region: Keypoints, keypointId: string) => void;
   onAddPolygonPoint: (
@@ -177,6 +178,7 @@ export const ImageCanvas = ({
   onBeginRegionEdit,
   onCloseRegionEdit,
   onBeginBoxTransform,
+  onBeginBoxRotation,
   onBeginMovePolygonPoint,
   onAddPolygonPoint,
   onBeginMoveKeypoint,
@@ -438,6 +440,7 @@ export const ImageCanvas = ({
             layoutParams={layoutParams}
             mat={mat}
             onBeginBoxTransform={onBeginBoxTransform}
+            onBeginBoxRotation={onBeginBoxRotation}
             onBeginMovePolygonPoint={onBeginMovePolygonPoint}
             onBeginMoveKeypoint={onBeginMoveKeypoint}
             onAddPolygonPoint={onAddPolygonPoint}
