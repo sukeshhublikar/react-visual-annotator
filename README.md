@@ -6,13 +6,14 @@ A powerful React-based image and video annotation tool with TypeScript support.
 
 ## Key Features
 
-- **TypeScript Support**: Full TypeScript integration with comprehensive type definitions
-- **React 19 Ready**: Compatible with React 18+ and React 19 with proper JSX runtime support
-- **Professional Interface**: Advanced annotation tools with intuitive UI/UX
-- **Performance Optimized**: Enhanced with lodash deep cloning and memory management
-- **Immutable State Handling**: Robust circular reference prevention and error handling
-- **Modern Build System**: Vite-powered development and optimized production builds
-- **Peer Dependencies**: Proper React ecosystem integration without version conflicts
+- **🚀 Optimized Bundle**: 24% smaller bundle size (1.3MB vs 1.7MB) with 38% smaller gzipped size
+- **📦 Smart Dependencies**: Uses peer dependencies to avoid version conflicts and reduce duplication
+- **💡 TypeScript Support**: Full TypeScript integration with comprehensive type definitions
+- **⚛️ React 19 Ready**: Compatible with React 18+ and React 19 with proper JSX runtime support
+- **🎨 Professional Interface**: Advanced annotation tools with Material-UI components
+- **⚡ Performance Optimized**: Enhanced with lodash deep cloning and Terser minification
+- **🔒 Immutable State Handling**: Robust circular reference prevention and error handling
+- **🛠️ Modern Build System**: Vite-powered development and optimized production builds
 
 ## Features
 
@@ -26,16 +27,26 @@ A powerful React-based image and video annotation tool with TypeScript support.
 
 ## Installation
 
+### Step 1: Install the package
 ```bash
 npm i react-visual-annotator
 # or
 yarn add react-visual-annotator
 ```
 
+### Step 2: Install peer dependencies
+```bash
+npm i @mui/material @mui/icons-material @emotion/react @emotion/styled lodash moment
+# or
+yarn add @mui/material @mui/icons-material @emotion/react @emotion/styled lodash moment
+```
+
 ### Requirements
 
 - React 18.0.0 or higher (including React 19)
 - TypeScript 4.5+ (if using TypeScript)
+- Material-UI 5.0.0+ (peer dependency)
+- Emotion 11.0.0+ (peer dependency)
 
 ## Usage
 
@@ -131,10 +142,22 @@ For development setup, see the instructions above.
 
 ### Common Issues
 
+#### Missing Peer Dependencies
+If you get errors about missing modules, install all required peer dependencies:
+```bash
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled lodash moment
+```
+
 #### React/React-DOM Version Conflicts
 If you encounter peer dependency warnings, ensure you have React 18+ installed:
 ```bash
 npm install react@^18.0.0 react-dom@^18.0.0
+```
+
+#### Material-UI Version Conflicts
+Ensure you're using Material-UI v5.0.0 or higher:
+```bash
+npm install @mui/material@^5.0.0 @mui/icons-material@^5.0.0
 ```
 
 #### ImmutableError Issues
@@ -150,6 +173,28 @@ The package now uses `@monaco-editor/react` instead of the deprecated `react-mon
 - Consider using React.memo for custom components when integrating with the annotator
 
 ## Changelog
+
+### Version 1.1.0
+
+#### 🚀 **Bundle Size Optimization**
+- **24% smaller bundle size**: Reduced from 1.7MB to 1.3MB
+- **38% smaller gzipped**: Reduced from 425kB to 265kB  
+- **Terser minification**: Enhanced compression with console/debugger removal
+- **Better tree-shaking**: Improved dead code elimination
+
+#### 📦 **Dependency Management**
+- **Peer dependencies**: Moved large dependencies (@mui/material, @emotion, lodash, moment) to peer dependencies
+- **Reduced conflicts**: Users can now use their own versions of Material-UI and Emotion
+- **Smaller installation**: Core package is now significantly smaller
+
+#### 🔧 **Technical Improvements**
+- **Enhanced Vite config**: Optimized build configuration for libraries
+- **TypeScript fixes**: Resolved useReducer typing issues
+- **Better compatibility**: Improved integration with different React project setups
+
+#### ⚠️ **Breaking Changes**
+- **Peer dependencies required**: Users must now install peer dependencies manually
+- **Installation process**: Now requires two-step installation (see Installation section)
 
 ### Version 1.0.0
 
