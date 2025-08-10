@@ -3,6 +3,7 @@ import { Action, Image, MainLayoutState } from "../../MainLayout/types";
 import { ExpandingLine, moveRegion, Region } from "../../types/region-tools.ts";
 import Immutable, { ImmutableObject } from "seamless-immutable";
 import isEqual from "lodash/isEqual";
+import { cloneDeep } from "lodash";
 import getActiveImage from "./get-active-image";
 import { saveToHistory } from "./history-handler";
 import colors from "../../colors";
@@ -398,7 +399,7 @@ export default <T extends ImmutableObject<MainLayoutState>>(
           const scale = distFromCenter / 0.15;
           return modifyRegion(regionId, {
             points: getLandmarksWithTransform({
-              landmarks: landmarks.asMutable({ deep: true }),
+              landmarks: cloneDeep(landmarks.asMutable({ deep: true })),
               center: { x: centerX, y: centerY },
               scale,
             }),
@@ -756,7 +757,7 @@ export default <T extends ImmutableObject<MainLayoutState>>(
             type: "keypoints",
             keypointsDefinitionId,
             points: getLandmarksWithTransform({
-              landmarks: landmarks.asMutable({ deep: true }),
+              landmarks: cloneDeep(landmarks.asMutable({ deep: true })),
               center: { x, y },
               scale: 1,
             }),
@@ -778,20 +779,26 @@ export default <T extends ImmutableObject<MainLayoutState>>(
           break;
       }
 
-      const regions = [
-        ...(Immutable(state).getIn(pathToActiveImage).regions || []),
-      ]
-        .map((r) =>
-          Immutable(r)
-            .setIn(["editingLabels"], false)
-            .setIn(["highlighted"], false)
-        )
-        .concat(newRegion ? [newRegion] : []);
+      try {
+        const regions = [
+          ...(Immutable(state).getIn(pathToActiveImage).regions || []),
+        ]
+          .map((r) =>
+            Immutable(r)
+              .setIn(["editingLabels"], false)
+              .setIn(["highlighted"], false)
+          )
+          .concat(newRegion ? [newRegion] : []);
 
-      return Immutable(state).setIn(
-        [...pathToActiveImage, "regions"],
-        regions
-      ) as T;
+        return Immutable(state).setIn(
+          [...pathToActiveImage, "regions"],
+          regions
+        ) as T;
+      } catch (error) {
+        console.warn("Error creating immutable regions:", error);
+        // Return original state if immutable operation fails
+        return state;
+      }
     }
     case "MOUSE_UP": {
       const { x, y } = action;

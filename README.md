@@ -1,15 +1,18 @@
-# React Image Annotate
+# React Visual Annotator
 
-[![npm version](https://img.shields.io/npm/v/@idapgroup/react-image-annotate.svg)](https://www.npmjs.com/package/@idapgroup/react-image-annotate)
+[![npm version](https://img.shields.io/npm/v/react-visual-annotator.svg)](https://www.npmjs.com/package/react-visual-annotator)
 
-Fork of react-image-annotate - The best image/video annotation tool
-ever. [Check out the demo here](https://universaldatatool.github.io/react-image-annotate/). Or
-the [code sandbox here](https://codesandbox.io/s/react-image-annotate-example-38tsc?file=/src/App.js:0-403).
+A powerful React-based image and video annotation tool with TypeScript support.
 
-Implemented features in fork:
+## Key Features
 
-- added typescript
-- updated react to v.18
+- **TypeScript Support**: Full TypeScript integration with comprehensive type definitions
+- **React 19 Ready**: Compatible with React 18+ and React 19 with proper JSX runtime support
+- **Professional Interface**: Advanced annotation tools with intuitive UI/UX
+- **Performance Optimized**: Enhanced with lodash deep cloning and memory management
+- **Immutable State Handling**: Robust circular reference prevention and error handling
+- **Modern Build System**: Vite-powered development and optimized production builds
+- **Peer Dependencies**: Proper React ecosystem integration without version conflicts
 
 ## Features
 
@@ -21,13 +24,24 @@ Implemented features in fork:
 
 ![Screenshot of Annotator](https://user-images.githubusercontent.com/1910070/51199716-83c72080-18c5-11e9-837c-c3a89c8caef4.png)
 
-## Usage
+## Installation
 
-`npm i @idapgroup/react-image-annotate`
+```bash
+npm i react-visual-annotator
+# or
+yarn add react-visual-annotator
+```
+
+### Requirements
+
+- React 18.0.0 or higher (including React 19)
+- TypeScript 4.5+ (if using TypeScript)
+
+## Usage
 
 ```javascript
 import React from "react";
-import ReactImageAnnotate from "@idapgroup/react-image-annotate";
+import ReactImageAnnotate from "react-visual-annotator";
 
 const App = () => (
   <ReactImageAnnotate
@@ -76,7 +90,7 @@ All of the following properties can be defined on the Annotator...
 | `showPointDistances`       | `boolean`                                               | Show distances between points.                                                                                                                                | `false`       |
 | `pointDistancePrecision`   | `number`                                                | Precision on displayed points (e.g. 3 => 0.123)                                                                                                               |               |
 | `onExit`                   | `MainLayoutState => any`                                | Called when "Save" is called.                                                                                                                                 |               |
-| `RegionEditLabel`          | `Node`                                                  | React Node overriding the form to update the region (see [`RegionLabel`](https://github.com/waoai/react-image-annotate/blob/master/src/RegionLabel/index.js)) |               |
+| `RegionEditLabel`          | `Node`                                                  | React Node overriding the form to update the region (see `RegionLabel` component) |               |
 | `allowComments`            | `boolean`                                               | Show a textarea to add comments on each annotation.                                                                                                           | `false`       |
 | `hidePrev`                 | `boolean`                                               | Hide `Previous Image` button from the header bar.                                                                                                             | `false`       |
 | `hideNext`                 | `boolean`                                               | Hide `Next Image` button from the header bar.                                                                                                                 | `false`       |
@@ -89,18 +103,85 @@ All of the following properties can be defined on the Annotator...
 
 ### Development
 
-This project uses [react-storybook](https://storybook.js.org/). To begin developing run the following commands in the
-cloned repo.
+This project uses Vite for development and building. To begin developing, run the following commands in the cloned repo:
 
-1. `yarn install`
-2. `yarn add react react-dom`
-3. For production build need remove `react` and `react-dom` packages and
-   run `yarn build` - it fix the issue with `react` and `react-dom` versions in your project.
+1. `yarn install` - Install all dependencies
+2. `yarn start` - Start the development server
+3. `yarn build` - Build for production
 
-A browser tab will automatically open with the project components.
+**Note**: React and React-DOM are configured as peer dependencies for the published package, but are installed as dev dependencies for development. This ensures proper version compatibility in your projects.
 
-See more details in
-the [contributing guidelines](https://github.com/waoai/react-image-annotate/wiki/Setup-for-Development).
+#### Development Environment Setup
+
+- **Node.js**: Ensure you have Node.js 16+ installed
+- **Package Manager**: Uses Yarn for dependency management
+- **TypeScript**: Full TypeScript support with strict type checking
+- **React**: Compatible with React 18+ and React 19
+
+#### Building for Production
+
+The build process creates optimized bundles in the `dist/` folder:
+- ES modules for modern bundlers
+- TypeScript declarations
+- Optimized for tree-shaking
+
+For development setup, see the instructions above.
+
+## Troubleshooting
+
+### Common Issues
+
+#### React/React-DOM Version Conflicts
+If you encounter peer dependency warnings, ensure you have React 18+ installed:
+```bash
+npm install react@^18.0.0 react-dom@^18.0.0
+```
+
+#### ImmutableError Issues
+This version includes comprehensive fixes for immutable object handling. If you still encounter circular reference errors, please file an issue with your specific use case.
+
+#### Monaco Editor Issues
+The package now uses `@monaco-editor/react` instead of the deprecated `react-monaco-editor`. No action needed - the upgrade is automatic.
+
+### Performance Tips
+
+- The library automatically handles memory optimization through lodash deep cloning
+- Large annotation datasets are efficiently managed through the improved state system
+- Consider using React.memo for custom components when integrating with the annotator
+
+## Changelog
+
+### Version 1.0.0
+
+#### 🚀 **Performance Improvements**
+- **Replaced JSON serialization with lodash cloneDeep**: Improved performance and reliability for deep object cloning throughout the application
+- **Enhanced memory management**: Better handling of circular references in state management and history operations
+- **Optimized immutable operations**: Reduced performance overhead in history, regions, and state operations
+- **Safe prop handling**: Implemented comprehensive deep cloning for all immutable props passed to components
+
+#### 🔧 **Technical Updates**
+- **React 19 compatibility**: Full support for React 19 with backward compatibility to React 18+
+- **Dependency management**: Proper peer dependency setup for React ecosystem compatibility
+- **FontAwesome fixes**: Resolved React 19 compatibility issues with FontAwesome icons by adding className props
+- **Monaco Editor upgrade**: Updated from `react-monaco-editor` to `@monaco-editor/react` for better React 19 support
+- **Development environment**: Fixed Vite dependency resolution for React/React-DOM in development mode
+- **Build optimization**: Improved library build configuration for npm publishing
+
+#### 🐛 **Bug Fixes**
+- **Fixed ImmutableError in multiple components**: Resolved circular reference errors in:
+  - RegionSelectAndTransformBoxes (region handling)
+  - HistorySidebarBox (history operations)
+  - ClassSelectionMenu and other sidebar components
+- **Resolved Monaco Editor errors**: Fixed `editorWillMount is not a function` compatibility issues
+- **Fixed deeply nested object errors**: Prevented immutable construction errors from seamless-immutable
+- **Improved error handling**: Added try-catch blocks and defensive programming patterns
+- **Type safety improvements**: Enhanced TypeScript type safety throughout the codebase
+
+#### 📦 **Package & Publishing**
+- **NPM ready**: Configured for npm publication with proper package.json setup
+- **Module exports**: Added modern ES module exports with proper TypeScript definitions
+- **Peer dependencies**: Correctly configured React and React-DOM as peer dependencies
+- **Build artifacts**: Optimized dist folder structure for library consumption
 
 ### Icons
 

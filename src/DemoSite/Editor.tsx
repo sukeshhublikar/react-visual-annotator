@@ -10,7 +10,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import MonacoEditor from "react-monaco-editor";
+import { Editor as MonacoEditor } from "@monaco-editor/react";
 import { AnnotatorProps } from "../Annotator";
 
 const theme = createTheme();
@@ -209,19 +209,25 @@ const Editor = ({ onOpenAnnotator, lastOutput }: any) => {
               value={currentJSONValue}
               language="javascript"
               onChange={(code) => {
-                try {
-                  window.localStorage.setItem(
-                    "customInput",
-                    JSON.stringify(JSON.parse(code))
-                  );
-                  changeCurrentError(null);
-                } catch (e) {
-                  changeCurrentError(e?.toString() || null);
+                if (code) {
+                  try {
+                    window.localStorage.setItem(
+                      "customInput",
+                      JSON.stringify(JSON.parse(code))
+                    );
+                    changeCurrentError(null);
+                  } catch (e) {
+                    changeCurrentError(e?.toString() || null);
+                  }
+                  changeCurrentJSONValue(code);
                 }
-                changeCurrentJSONValue(code);
               }}
               width="100%"
               height="550px"
+              options={{
+                minimap: { enabled: false },
+                fontSize: 14,
+              }}
             />
           </div>
         </div>
@@ -277,6 +283,11 @@ const Editor = ({ onOpenAnnotator, lastOutput }: any) => {
               language="javascript"
               width="100%"
               height="550px"
+              options={{
+                readOnly: true,
+                minimap: { enabled: false },
+                fontSize: 14,
+              }}
             />
           </DialogContent>
           <DialogActions>

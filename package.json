@@ -1,11 +1,20 @@
 {
-  "name": "@idapgroup/react-image-annotate",
-  "version": "2.1.0",
+  "name": "react-visual-annotator",
+  "version": "1.0.0",
   "type": "module",
-  "main": "dist/react-image-annotate.js",
+  "main": "dist/react-visual-annotator.js",
+  "module": "dist/react-visual-annotator.js",
   "types": "dist/lib.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/react-visual-annotator.js",
+      "types": "./dist/lib.d.ts"
+    }
+  },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -13,6 +22,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@monaco-editor/react": "^4.7.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
     "autoseg": "^0.0.12",
@@ -24,7 +34,6 @@
     "react-full-screen": "^1.1.1",
     "react-hotkeys": "^2.0.0",
     "react-markdown": "^9.0.0",
-    "react-monaco-editor": "^0.55.0",
     "react-remove-scroll": "^2.0.4",
     "react-select": "^5.8.0",
     "react-syntax-highlighter": "^15.5.0",
@@ -39,8 +48,8 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@types/lodash": "^4.17.0",
     "@types/node": "^20.12.4",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
     "@types/react-select": "^5.0.1",
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/rollup-plugin-peer-deps-external": "^2.2.5",
@@ -50,6 +59,8 @@
     "cross-env": "^7.0.3",
     "gh-pages": "^2.0.1",
     "prettier": "^2.5.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-github-btn": "^1.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.2.2",
@@ -59,16 +70,17 @@
     "vite-tsconfig-paths": "^4.3.2"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/idapgroup/react-image-annotate.git"
+    "url": "git+https://github.com/YOURUSERNAME/react-visual-annotator.git"
   },
   "scripts": {
     "start": "vite --force",
     "build": "tsc && vite build",
+    "prepublishOnly": "npm run build",
     "prettier": "prettier --write \"src/**/*.js\"",
     "prettier:test": "prettier --check \"src/**/*.js\""
   },
@@ -78,6 +90,23 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "keywords": [
+    "react",
+    "annotation",
+    "image",
+    "video",
+    "labeling",
+    "computer-vision",
+    "bounding-box",
+    "polygon",
+    "typescript"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/YOURUSERNAME/react-visual-annotator#readme",
+  "bugs": {
+    "url": "https://github.com/YOURUSERNAME/react-visual-annotator/issues"
+  },
   "prettier": {
     "semi": true
   }

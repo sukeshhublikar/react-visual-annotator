@@ -36,6 +36,7 @@ import { grey } from "@mui/material/colors";
 import { notEmpty } from "../utils/not-empty.ts";
 import { ALL_TOOLS } from "./all-tools-list.ts";
 import Immutable from "seamless-immutable";
+import { cloneDeep } from "lodash";
 import Workspace from "../workspace/Workspace";
 import { tss } from "tss-react/mui";
 import { RegionLabelProps } from "../RegionLabel";
@@ -136,6 +137,24 @@ export const MainLayout = ({
   };
 
   const { currentImageIndex, activeImage } = getActiveImage(Immutable(state));
+  
+  // Calculate implied video regions first
+  let impliedVideoRegions = useImpliedVideoRegions(state);
+  
+  // Convert immutable props back to regular objects to prevent circular reference issues
+  const safeRegionClsList = state.regionClsList ? cloneDeep(state.regionClsList) : undefined;
+  const safeImageClsList = state.imageClsList ? cloneDeep(state.imageClsList) : undefined;
+  const safeImageTagList = state.imageTagList ? cloneDeep(state.imageTagList) : undefined;
+  const safeHistory = state.history ? cloneDeep(state.history) : [];
+  
+  // Safe regions to prevent immutable circular reference errors
+  const safeRegions = useMemo(() => {
+    const regions = state.annotationType === "image"
+      ? activeImage?.regions || []
+      : impliedVideoRegions;
+    return regions ? cloneDeep(regions) : [];
+  }, [state.annotationType, activeImage?.regions, impliedVideoRegions]);
+  
   let nextImage;
   if (currentImageIndex !== null && "images" in state) {
     nextImage = state.images[+currentImageIndex + 1];
@@ -148,8 +167,6 @@ export const MainLayout = ({
   // const isAVideoFrame = activeImage && activeImage.frameTime !== undefined
   const innerContainerRef = useRef<HTMLElement | null>(null);
   const hotkeyHandlers = useDispatchHotkeyHandlers({ dispatch });
-
-  let impliedVideoRegions = useImpliedVideoRegions(state);
 
   const refocusOnMouseEvent: MouseEventHandler<HotKeys> = useCallback(
     (e: MouseEvent<HotKeys>) => {
@@ -183,11 +200,7 @@ export const MainLayout = ({
       regionClsList={state.regionClsList}
       regionTagList={state.regionTagList}
       regionTagSingleSelection={state.regionTagSingleSelection}
-      regions={
-        state.annotationType === "image"
-          ? activeImage?.regions || []
-          : impliedVideoRegions
-      }
+      regions={safeRegions}
       realSize={
         activeImage && "realSize" in activeImage
           ? activeImage.realSize
@@ -340,11 +353,11 @@ export const MainLayout = ({
         description={state.taskDescription}
       />
     ),
-    state.regionClsList && (
+    safeRegionClsList && (
       <ClassSelectionMenu
         key="classSelectionMenu"
         selectedCls={state.selectedCls}
-        regionClsList={state.regionClsList}
+        regionClsList={safeRegionClsList}
         onSelectCls={action("SELECT_CLASSIFICATION", "cls")}
       />
     ),
@@ -352,16 +365,16 @@ export const MainLayout = ({
       <TagsSidebarBox
         key="tagsSidebarBox"
         currentImage={activeImage}
-        imageClsList={state.imageClsList}
-        imageTagList={state.imageTagList}
+        imageClsList={safeImageClsList}
+        imageTagList={safeImageTagList}
         onChangeImage={action("CHANGE_IMAGE", "delta")}
         expandedByDefault
       />
     ),
     <RegionSelector
       key="regionSelector"
-      regionClsList={state.regionClsList}
-      regions={activeImage ? activeImage.regions : []}
+      regionClsList={safeRegionClsList}
+      regions={safeRegions}
       regionAllowedActions={state.regionAllowedActions}
       onSelectRegion={action("SELECT_REGION", "region")}
       onDeleteRegion={action("DELETE_REGION", "region")}
@@ -378,7 +391,7 @@ export const MainLayout = ({
     ),
     <HistorySidebarBox
       key="historySidebarBox"
-      history={state.history}
+      history={safeHistory}
       onRestoreHistory={action("RESTORE_HISTORY")}
     />,
   ].reduce((acc: ReactElement[], curr) => {

@@ -3,6 +3,7 @@
 import { Action, MainLayoutState } from "../../MainLayout/types";
 import Immutable, { ImmutableObject } from "seamless-immutable";
 import moment from "moment";
+import { cloneDeep } from "lodash";
 
 const typesToSaveWithHistory: Record<string, string> = {
   BEGIN_BOX_TRANSFORM: "Transform/Move Box",
@@ -15,9 +16,11 @@ export const saveToHistory = <T extends ImmutableObject<MainLayoutState>>(
   name: string
 ) =>
   Immutable(state).updateIn(["history"], (h) => {
+    // Create a clean copy of state without circular references
+    const cleanState = cloneDeep(Immutable.asMutable(state.without("history") as any, { deep: true }));
     const newValue = {
       time: moment().toDate(),
-      state: Immutable(state).without("history"),
+      state: cleanState,
       name,
     };
     const prevItems = h || [];
@@ -37,21 +40,27 @@ export default (
 
     if (action.type === "RESTORE_HISTORY") {
       if (state.history.length > 0) {
-        const newState = Immutable(
-          nextState.history[0].state
-        ) as ImmutableObject<MainLayoutState>;
-        return newState.setIn(["history"], nextState.history.slice(1));
+        try {
+          const newState = Immutable(
+            nextState.history[0].state
+          ) as ImmutableObject<MainLayoutState>;
+          return newState.setIn(["history"], nextState.history.slice(1));
+        } catch (error) {
+          console.warn("Error restoring history:", error);
+          // Return current state if restore fails
+          return nextState;
+        }
       }
     } else {
       if (
         prevState !== nextState &&
         Object.keys(typesToSaveWithHistory).includes(action.type)
       ) {
+        // Create a clean copy of state without circular references
+        const cleanPrevState = cloneDeep(Immutable.asMutable(prevState.without("history") as any, { deep: true }));
         const historyItem = {
           time: moment().toDate(),
-          state: (
-            Immutable(prevState) as ImmutableObject<MainLayoutState>
-          ).without("history"),
+          state: cleanPrevState,
           name: typesToSaveWithHistory[action.type] || action.type,
         };
         const prevItems = nextState.history || [];

@@ -31,19 +31,20 @@ export const iconDictionary: Record<
       size="xs"
       fixedWidth
       icon={faMousePointer}
+      className="fa-icon"
     />
   ),
   pan: () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faHandPaper} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faHandPaper} className="fa-icon" />
   ),
   zoom: () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faSearch} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faSearch} className="fa-icon" />
   ),
   "show-tags": () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faTag} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faTag} className="fa-icon" />
   ),
   "create-point": () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faCrosshairs} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faCrosshairs} className="fa-icon" />
   ),
   "create-box": () => (
     <FontAwesomeIcon
@@ -51,6 +52,7 @@ export const iconDictionary: Record<
       size="xs"
       fixedWidth
       icon={faVectorSquare}
+      className="fa-icon"
     />
   ),
   "create-polygon": () => (
@@ -59,28 +61,29 @@ export const iconDictionary: Record<
       size="xs"
       fixedWidth
       icon={faDrawPolygon}
+      className="fa-icon"
     />
   ),
   "create-expanding-line": () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faGripLines} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faGripLines} className="fa-icon" />
   ),
   "create-line": () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faChartLine} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faChartLine} className="fa-icon" />
   ),
   "show-mask": () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faMask} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faMask} className="fa-icon" />
   ),
   "modify-allowed-area": () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faEdit} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faEdit} className="fa-icon" />
   ),
   "create-keypoints": () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faExpand} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faExpand} className="fa-icon" />
   ),
   fullscreen: () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faExpand} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faExpand} className="fa-icon" />
   ),
   window: () => (
-    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faCompress} />
+    <FontAwesomeIcon style={faStyle} size="xs" fixedWidth icon={faCompress} className="fa-icon" />
   ),
 };
 
