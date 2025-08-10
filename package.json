@@ -1,6 +1,6 @@
 {
   "name": "react-visual-annotator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Powerful React image and video annotation tool for machine learning, computer vision, and AI training data creation. Features bounding boxes, polygons, keypoints, segmentation with TypeScript support and Material-UI components.",
   "type": "module",
   "main": "dist/react-visual-annotator.js",
@@ -15,8 +15,10 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
+  "sideEffects": false,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
@@ -87,10 +89,15 @@
   },
   "scripts": {
     "start": "vite --force",
+    "dev": "vite --force",
     "build": "vite build",
+    "build:analyze": "vite build --mode analyze",
     "prepublishOnly": "npm run build",
+    "preview": "vite preview",
     "prettier": "prettier --write \"src/**/*.js\"",
-    "prettier:test": "prettier --check \"src/**/*.js\""
+    "prettier:test": "prettier --check \"src/**/*.js\"",
+    "test:build": "npm run build && node -e \"console.log('Build test passed')\"",
+    "size": "ls -lah dist/"
   },
   "browserslist": [
     ">0.2%",
@@ -129,11 +136,23 @@
     "coco",
     "training-data"
   ],
-  "author": "Sukesh Hublikar <sukesh.hublikar@example.com>",
+  "author": {
+    "name": "Sukesh Hublikar",
+    "email": "sukesh.hublikar@gmail.com",
+    "url": "https://github.com/sukeshhublikar"
+  },
   "license": "MIT",
   "homepage": "https://github.com/sukeshhublikar/react-visual-annotator#readme",
   "bugs": {
     "url": "https://github.com/sukeshhublikar/react-visual-annotator/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/sukeshhublikar"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   },
   "prettier": {
     "semi": true
