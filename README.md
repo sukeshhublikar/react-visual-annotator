@@ -1,8 +1,13 @@
 # React Visual Annotator
 
 [![npm version](https://img.shields.io/npm/v/react-visual-annotator.svg)](https://www.npmjs.com/package/react-visual-annotator)
+[![npm downloads](https://img.shields.io/npm/dm/react-visual-annotator.svg)](https://www.npmjs.com/package/react-visual-annotator)
+[![bundle size](https://img.shields.io/bundlephobia/min/react-visual-annotator.svg)](https://bundlephobia.com/package/react-visual-annotator)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18%2B%20%7C%2019-blue.svg)](https://reactjs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A powerful React-based image and video annotation tool with TypeScript support.
+A powerful React-based image and video annotation tool for machine learning, computer vision, and AI training data creation. Perfect for creating datasets for YOLO, COCO, and other object detection models with TypeScript support and Material-UI components.
 
 ## Key Features
 
@@ -15,12 +20,24 @@ A powerful React-based image and video annotation tool with TypeScript support.
 - **🔒 Immutable State Handling**: Robust circular reference prevention and error handling
 - **🛠️ Modern Build System**: Vite-powered development and optimized production builds
 
+## Use Cases
+
+- **Machine Learning Training Data**: Create labeled datasets for object detection, image segmentation, and computer vision models
+- **YOLO/COCO Dataset Creation**: Generate annotations compatible with popular ML frameworks
+- **Medical Imaging**: Annotate medical scans, X-rays, and diagnostic images
+- **Autonomous Vehicles**: Label traffic signs, vehicles, pedestrians, and road features
+- **Quality Control**: Annotate defects and features in manufacturing and inspection
+- **Research Projects**: Academic and commercial computer vision research
+- **Content Moderation**: Label and categorize user-generated content
+
 ## Features
 
 - Simple input/output format
 - Bounding Box, Point and Polygon Annotation
+- Keypoint and Landmark Annotation
+- Image Segmentation Support
 - Zooming, Scaling, Panning
-- Multiple Images
+- Multiple Images and Video Support
 - Cursor Crosshair
 
 ![Screenshot of Annotator](https://user-images.githubusercontent.com/1910070/51199716-83c72080-18c5-11e9-837c-c3a89c8caef4.png)
@@ -165,6 +182,20 @@ This version includes comprehensive fixes for immutable object handling. If you 
 
 #### Monaco Editor Issues
 The package now uses `@monaco-editor/react` instead of the deprecated `react-monaco-editor`. No action needed - the upgrade is automatic.
+
+## Alternative Search Terms
+
+If you're looking for this package, you might have searched for:
+- React image annotation
+- React annotation tool
+- Image labeling React
+- Computer vision annotation
+- React bounding box
+- ML training data tool
+- Object detection annotation
+- React image tagger
+- YOLO annotation tool
+- COCO dataset creator
 
 ### Performance Tips
 
