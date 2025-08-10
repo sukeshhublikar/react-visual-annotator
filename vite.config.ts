@@ -36,18 +36,45 @@ export default defineConfig(() => {
       lib: {
         entry: resolve(__dirname, "src/lib.tsx"),
         formats: ["es"],
+        fileName: "react-visual-annotator",
+      },
+      minify: "terser",
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
       },
       rollupOptions: {
-        external: ["react", "react-dom", "react/jsx-runtime"],
+        external: [
+          "react", 
+          "react-dom", 
+          "react/jsx-runtime",
+          "@mui/material",
+          "@mui/icons-material",
+          "@emotion/react",
+          "@emotion/styled",
+          "lodash",
+          "moment"
+        ],
         output: {
           // Provide global variables to use in the UMD build
-          // for externalized deps
           globals: {
             react: "React",
             "react-dom": "ReactDOM",
+            "@mui/material": "MaterialUI",
+            "@mui/icons-material": "MaterialUIIcons",
+            "@emotion/react": "emotionReact",
+            "@emotion/styled": "emotionStyled",
+            "lodash": "_",
+            "moment": "moment"
           },
+          // Enable code splitting for chunks
+          manualChunks: undefined,
         },
       },
+      // Reduce chunk size warnings threshold
+      chunkSizeWarningLimit: 500,
     },
   };
 });

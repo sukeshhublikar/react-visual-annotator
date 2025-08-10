@@ -17,19 +17,13 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@monaco-editor/react": "^4.7.0",
-    "@mui/icons-material": "^5.15.14",
-    "@mui/material": "^5.15.14",
     "autoseg": "^0.0.12",
     "classnames": "^2.5.1",
     "color-alpha": "^2.0.0",
-    "lodash": "^4.17.21",
-    "moment": "^2.30.0",
     "monaco-editor": "^0.47.0",
     "react-full-screen": "^1.1.1",
     "react-hotkeys": "^2.0.0",
@@ -45,6 +39,10 @@
     "use-event-callback": "^0.1.0"
   },
   "devDependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.14",
+    "@mui/material": "^5.15.14",
     "@rollup/plugin-replace": "^5.0.5",
     "@types/lodash": "^4.17.0",
     "@types/node": "^20.12.4",
@@ -58,11 +56,14 @@
     "cpy-cli": "^5.0.0",
     "cross-env": "^7.0.3",
     "gh-pages": "^2.0.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.0",
     "prettier": "^2.5.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-github-btn": "^1.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "terser": "^5.43.1",
     "typescript": "^5.2.2",
     "vite": "^5.2.7",
     "vite-plugin-dts": "^3.8.1",
@@ -70,6 +71,12 @@
     "vite-tsconfig-paths": "^4.3.2"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^5.0.0",
+    "lodash": "^4.0.0",
+    "moment": "^2.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
@@ -79,7 +86,7 @@
   },
   "scripts": {
     "start": "vite --force",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "prepublishOnly": "npm run build",
     "prettier": "prettier --write \"src/**/*.js\"",
     "prettier:test": "prettier --check \"src/**/*.js\""
@@ -109,8 +116,5 @@
   },
   "prettier": {
     "semi": true
-  },
-  "resolutions": {
-    "@types/react": "^19.1.9"
   }
 }
