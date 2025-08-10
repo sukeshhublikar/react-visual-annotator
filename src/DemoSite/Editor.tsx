@@ -150,27 +150,27 @@ const Editor = ({ onOpenAnnotator, lastOutput }: any) => {
           <div style={{ flexGrow: 1 }} />
           <div>
             <div style={{ display: "inline-flex" }}>
-              <Select
-                className={classes.select}
-                value={{ label: selectedExample, value: selectedExample }}
-                options={Object.keys(examples).map((s) => ({
-                  label: s,
-                  value: s,
-                }))}
-                onChange={(selectedOption) => {
-                  if (!selectedOption) return;
-                  changeSelectedExample(selectedOption.value);
+              <Select<{ label: string; value: string }>
+              className={classes.select}
+              value={{ label: selectedExample, value: selectedExample }}
+              options={Object.keys(examples).map((s) => ({
+                label: s,
+                value: s,
+              }))}
+              onChange={(selectedOption: { label: string; value: string } | null) => {
+                if (!selectedOption) return;
+                changeSelectedExample(selectedOption.value);
 
-                  changeCurrentJSONValue(
-                    JSON.stringify(
-                      selectedOption?.value === "Custom"
-                        ? loadSavedInput()
-                        : examples[selectedOption.value](),
-                      null,
-                      "  "
-                    )
-                  );
-                }}
+                changeCurrentJSONValue(
+                JSON.stringify(
+                  selectedOption?.value === "Custom"
+                  ? loadSavedInput()
+                  : examples[selectedOption.value](),
+                  null,
+                  "  "
+                )
+                );
+              }}
               />
             </div>
             <Button

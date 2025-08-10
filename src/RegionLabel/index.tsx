@@ -178,85 +178,102 @@ export const RegionLabel = ({
               </IconButton>
             </div>
             {(allowedClasses || []).length > 0 && (
-              <div style={{ marginTop: 6 }}>
+                <div style={{ marginTop: 6 }}>
                 {isCreatableAllowedClasses ? (
                   <CreatableSelect
-                    placeholder="Classification"
-                    onChange={(o, actionMeta) => {
-                      if (!o) return;
-                      if (
-                        actionMeta.action == "create-option" &&
-                        onRegionClassAdded
-                      ) {
-                        onRegionClassAdded(o.value);
-                      }
-                      onChange({
-                        ...region,
-                        cls: o.value,
-                      });
-                    }}
-                    value={selectedValue}
-                    options={asMutable(
-                      allowedClasses?.map((c) => {
-                        if (typeof c === "string") {
-                          return { value: c, label: c };
-                        }
-                        return { value: c.id, label: c.label };
-                      })
-                    )}
+                  placeholder="Classification"
+                  onChange={(
+                    o: { value: string; label: string } | null,
+                    actionMeta: { action: string }
+                  ) => {
+                    if (!o) return;
+                    if (
+                    actionMeta.action == "create-option" &&
+                    onRegionClassAdded
+                    ) {
+                    onRegionClassAdded(o.value);
+                    }
+                    onChange({
+                    ...region,
+                    cls: o.value,
+                    });
+                  }}
+                  value={selectedValue as { value: string; label: string } | null}
+                  options={asMutable(
+                    allowedClasses?.map((c): { value: string; label: string } => {
+                    if (typeof c === "string") {
+                      return { value: c, label: c };
+                    }
+                    return { value: c.id, label: c.label };
+                    })
+                  )}
                   />
                 ) : (
                   <Select
-                    placeholder="Classification"
-                    onChange={(o) => {
-                      if (!o) return;
-                      onChange({
-                        ...region,
-                        cls: o.value,
-                      });
-                    }}
-                    value={selectedValue}
-                    options={asMutable(
-                      allowedClasses?.map((c) => {
-                        if (typeof c === "string") {
-                          return { value: c, label: c };
-                        }
-                        return { value: c.id, label: c.label };
-                      })
-                    )}
+                  placeholder="Classification"
+                  onChange={(
+                    o: { value: string; label: string } | null
+                  ) => {
+                    if (!o) return;
+                    onChange({
+                    ...region,
+                    cls: o.value,
+                    });
+                  }}
+                  value={selectedValue as { value: string; label: string } | null}
+                  options={asMutable(
+                    allowedClasses?.map((c): { value: string; label: string } => {
+                    if (typeof c === "string") {
+                      return { value: c, label: c };
+                    }
+                    return { value: c.id, label: c.label };
+                    })
+                  )}
                   />
                 )}
-              </div>
+                </div>
             )}
             {(allowedTags || []).length > 0 && (
-              <div style={{ marginTop: 4 }}>
+                <div style={{ marginTop: 4 }}>
                 <Select
-                  onChange={(newTags) => {
-                    if (Array.isArray(newTags)) {
-                      onChange({
-                        ...region,
-                        tags: newTags.map((t) => t.value),
-                      });
-                      return;
-                    }
-                    if (newTags && "value" in newTags) {
-                      onChange({
-                        ...region,
-                        tags: [newTags.value],
-                      });
-                    }
+                  onChange={(
+                  newTags:
+                    | Array<{ value: string; label: string }>
+                    | { value: string; label: string }
+                    | null
+                  ) => {
+                  if (Array.isArray(newTags)) {
+                    onChange({
+                    ...region,
+                    tags: newTags.map((t) => t.value),
+                    });
+                    return;
+                  }
+                  if (newTags && "value" in newTags) {
+                    onChange({
+                    ...region,
+                    tags: [newTags.value],
+                    });
+                  }
                   }}
                   placeholder="Tags"
-                  value={(region.tags || []).map((c) => ({
+                  value={(region.tags || []).map(
+                  (c): { label: string; value: string } => ({
                     label: c,
                     value: c,
-                  }))}
+                  })
+                  )}
                   isMulti={!tagSingleSelection}
                   options={asMutable(
-                    allowedTags?.map((c) => ({ value: c, label: c }))
+                  allowedTags?.map(
+                    (c): { value: string; label: string } => ({
+                    value: c,
+                    label: c,
+                    })
+                  )
                   )}
                 />
-              </div>
+                </div>
             )}
             {allowComments && (
               <TextField

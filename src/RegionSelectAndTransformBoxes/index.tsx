@@ -117,7 +117,7 @@ export const RegionSelectAndTransformBox = memo(
                 <TransformGrabber
                   key={i}
                   {...mouseEvents}
-                  onMouseDown={(e) => {
+                  onMouseDown={(e:any) => {
                     if (e.button === 0)
                       return onBeginBoxTransform(r, [px * 2 - 1, py * 2 - 1]);
                     mouseEvents.onMouseDown(e);
@@ -144,7 +144,7 @@ export const RegionSelectAndTransformBox = memo(
                   <TransformGrabber
                     key={i}
                     {...mouseEvents}
-                    onMouseDown={(e) => {
+                    onMouseDown={(e:any) => {
                       if (e.button === 0 && (!r.open || i === 0))
                         return onBeginMovePolygonPoint(r, i);
                       mouseEvents.onMouseDown(e);
@@ -185,7 +185,7 @@ export const RegionSelectAndTransformBox = memo(
                     <TransformGrabber
                       key={i}
                       {...mouseEvents}
-                      onMouseDown={(e) => {
+                      onMouseDown={(e:any) => {
                         if (e.button === 0)
                           return onAddPolygonPoint(
                             r,
@@ -221,7 +221,7 @@ export const RegionSelectAndTransformBox = memo(
                       <TransformGrabber
                         key={i}
                         {...mouseEvents}
-                        onMouseDown={(e) => {
+                        onMouseDown={(e:any) => {
                           if (e.button === 0 && (!r.open || i === 0))
                             return onBeginMoveKeypoint(r, keypointId);
                           mouseEvents.onMouseDown(e);

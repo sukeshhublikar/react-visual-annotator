@@ -3,7 +3,7 @@
 import { useCallback, useLayoutEffect, useRef } from "react";
 
 export default (fn: Function) => {
-  let ref = useRef<Function>();
+  let ref = useRef<Function | undefined>(undefined);
 
   useLayoutEffect(() => {
     ref.current = fn;

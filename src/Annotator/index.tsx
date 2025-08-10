@@ -1,4 +1,5 @@
 // @flow
+/* @ts-ignore */
 
 import {
   Action,
@@ -167,6 +168,7 @@ export const Annotator = ({
         }),
   });
   const [state, dispatchToReducer] = useReducer<
+  // @ts-ignore
     (state: MainLayoutState, action: Action) => MainLayoutState
   >(
     historyHandler(combinedReducers) as unknown as (
@@ -178,6 +180,7 @@ export const Annotator = ({
 
   const dispatch = useEventCallback((action: Action) => {
     if (action.type === "HEADER_BUTTON_CLICKED") {
+      // @ts-ignore
       const value = (Immutable(state) as ImmutableObject<MainLayoutState>)
         .without("history")
         .asMutable({ deep: true });
@@ -200,7 +203,9 @@ export const Annotator = ({
   });
 
   useEffect(() => {
+     // @ts-ignore
     if (selectedImage === undefined || state.annotationType !== "image") return;
+     // @ts-ignore
     const image = state.images[selectedImage];
     dispatchToReducer({
       type: "SELECT_IMAGE",
@@ -219,6 +224,7 @@ export const Annotator = ({
         RegionEditLabel={RegionEditLabel}
         alwaysShowNextButton={Boolean(onNextImage)}
         alwaysShowPrevButton={Boolean(onPrevImage)}
+         // @ts-ignore
         state={state}
         dispatch={dispatch}
         onRegionClassAdded={onRegionClassAdded}

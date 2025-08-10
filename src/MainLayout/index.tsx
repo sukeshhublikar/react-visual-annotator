@@ -165,7 +165,7 @@ export const MainLayout = ({
   });
 
   // const isAVideoFrame = activeImage && activeImage.frameTime !== undefined
-  const innerContainerRef = useRef<HTMLElement | null>(null);
+  const innerContainerRef = useRef<HTMLElement>(null!);
   const hotkeyHandlers = useDispatchHotkeyHandlers({ dispatch });
 
   const refocusOnMouseEvent: MouseEventHandler<HotKeys> = useCallback(
