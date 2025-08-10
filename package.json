@@ -75,7 +75,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOURUSERNAME/react-visual-annotator.git"
+    "url": "git+https://github.com/sukeshhublikar/react-visual-annotator.git"
   },
   "scripts": {
     "start": "vite --force",
@@ -101,11 +101,11 @@
     "polygon",
     "typescript"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Sukesh Hublikar <sukesh.hublikar@example.com>",
   "license": "MIT",
-  "homepage": "https://github.com/YOURUSERNAME/react-visual-annotator#readme",
+  "homepage": "https://github.com/sukeshhublikar/react-visual-annotator#readme",
   "bugs": {
-    "url": "https://github.com/YOURUSERNAME/react-visual-annotator/issues"
+    "url": "https://github.com/sukeshhublikar/react-visual-annotator/issues"
   },
   "prettier": {
     "semi": true
