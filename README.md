@@ -1,22 +1,22 @@
 # React Visual Annotator
 
-[![npm version](https://img.shields.io/npm/v/react-visual-annotator.svg)](https://www.npmjs.com/package/react-visual-annotator)
-[![npm downloads](https://img.shields.io/npm/dm/react-visual-annotator.svg)](https://www.npmjs.com/package/react-visual-annotator)
-[![bundle size](https://img.shields.io/bundlephobia/min/react-visual-annotator.svg)](https://bundlephobia.com/package/react-visual-annotator)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-18%2B%20%7C%2019-blue.svg)](https://reactjs.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/react-visual-annotator?style=flat-square&color=blue)](https://www.npmjs.com/package/react-visual-annotator)
+[![npm downloads](https://img.shields.io/npm/dm/react-visual-annotator?style=flat-square&color=green)](https://www.npmjs.com/package/react-visual-annotator)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18%2B%20%7C%2019-61DAFB?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Bundle Size](https://img.shields.io/badge/Bundle%20Size-1.3MB-orange?style=flat-square)](https://www.npmjs.com/package/react-visual-annotator)
 
-A powerful React-based image and video annotation tool for machine learning, computer vision, and AI training data creation. Perfect for creating datasets for YOLO, COCO, and other object detection models with TypeScript support and Material-UI components.
+A powerful React-based image and video annotation tool for machine learning, computer vision, and AI training data creation. Features **rotatable bounding boxes** with intuitive controls, perfect for creating datasets for YOLO, COCO, and other object detection models with TypeScript support and Material-UI components.
 
 ## Key Features
 
+- **🔄 Bounding Box Rotation**: NEW! Rotate bounding boxes with intuitive blue handles and 15° precision snapping
 - **🚀 Optimized Bundle**: 24% smaller bundle size (1.3MB vs 1.7MB) with 38% smaller gzipped size
 - **📦 Smart Dependencies**: Uses peer dependencies to avoid version conflicts and reduce duplication
 - **💡 TypeScript Support**: Full TypeScript integration with comprehensive type definitions
 - **⚛️ React 19 Ready**: Compatible with React 18+ and React 19 with proper JSX runtime support
 - **🎨 Professional Interface**: Advanced annotation tools with Material-UI components
-- **🔄 Bounding Box Rotation**: Rotate bounding boxes with intuitive controls and 15° snapping
 - **⚡ Performance Optimized**: Enhanced with lodash deep cloning and Terser minification
 - **🔒 Immutable State Handling**: Robust circular reference prevention and error handling
 - **🛠️ Modern Build System**: Vite-powered development and optimized production builds
